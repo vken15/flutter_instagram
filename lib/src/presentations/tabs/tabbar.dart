@@ -1,4 +1,5 @@
-import 'package:flutter_instagram/src/presentations/home/home_screen.dart';
+import 'package:flutter_instagram/src/presentations/home_screen.dart';
+import 'package:flutter_instagram/src/presentations/search/search_screen.dart';
 import 'package:flutter_instagram/src/presentations/setting_screen.dart';
 import 'package:flutter_instagram/src/presentations/tabs/controllers/tabbar_controller.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class AppTabBar extends GetWidget<TabBarController> {
                 controller: controller.tabController,
                 children: const [
                   HomeScreen(),
-                  Center(),
+                  SearchScreen(),
                   Center(),
                   Center(),
                   SettingScreen(),
@@ -23,10 +24,8 @@ class AppTabBar extends GetWidget<TabBarController> {
         bottomNavigationBar: TabBar(
           controller: controller.tabController,
           tabs: controller.tabs,
-          indicatorColor: MediaQuery.of(context).platformBrightness == Brightness.dark ? Colors.white : Colors.black,
-          onTap: (value) {
-            //controller.isSearch.value = false;
-          },
+          labelColor: MediaQuery.of(context).platformBrightness == Brightness.dark ? Colors.white : Colors.black,
+          indicator: const BoxDecoration(),
         ),
     );
   }
