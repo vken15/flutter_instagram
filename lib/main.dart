@@ -14,7 +14,9 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
+      theme: ThemeData.light(
+        
+      ),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
       initialBinding:  InitialBindings(),

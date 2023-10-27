@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_instagram/src/components/app_bottom_sheet.dart';
 import 'package:flutter_instagram/src/presentations/profile/controllers/profile_controller.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,8 @@ class ProfileScreen extends GetWidget<ProfileController> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            floating: true,
+            surfaceTintColor: context.isDarkMode ? Colors.black : Colors.white,
             title: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -26,12 +29,22 @@ class ProfileScreen extends GetWidget<ProfileController> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SvgPicture.asset("assets/icons/add-square-outline.svg",
-                    height: 24),
+                    height: 24,
+                      colorFilter: ColorFilter.mode(
+                          context.isDarkMode
+                              ? Colors.white
+                              : Colors.black,
+                          BlendMode.srcIn)),
               ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(Icons.menu_rounded, size: 32),
-              )
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: AppBottomSheet(
+                    icon: const Icon(Icons.menu_rounded, size: 32),
+                    child: ListView(
+                      padding: const EdgeInsets.all(8),
+                      children: controller.menuItems,
+                    ),
+                  )),
             ],
           ),
           const SliverToBoxAdapter(
@@ -104,11 +117,11 @@ class ProfileScreen extends GetWidget<ProfileController> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _buildCustomElevatedButton(
+                  _buildCustomElevatedButton(context,
                       () {}, const Text("Chỉnh sửa trang cá nhân")),
-                  _buildCustomElevatedButton(
+                  _buildCustomElevatedButton(context,
                       () {}, const Text("Chia sẻ trang cá nhân")),
-                  _buildCustomElevatedButton(
+                  _buildCustomElevatedButton(context,
                     () {},
                     const Icon(Icons.person_add),
                   ),
@@ -200,20 +213,20 @@ class ProfileScreen extends GetWidget<ProfileController> {
             child: TabBar(
               controller: controller.tabController,
               tabs: controller.tabs,
-              unselectedLabelColor: Colors.black54,
-              labelColor: Colors.black,
-              indicatorColor: Colors.black,
+              unselectedLabelColor: context.isDarkMode ? Colors.white54 : Colors.black54,
+              labelColor: context.isDarkMode ? Colors.white : Colors.black,
+              indicatorColor: context.isDarkMode ? Colors.white : Colors.black,
               indicatorSize: TabBarIndicatorSize.tab,
             ),
           ),
           SliverToBoxAdapter(
             child: ConstrainedBox(
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 maxHeight: 450,
               ),
               child: TabBarView(
                 controller: controller.tabController,
-                children: [
+                children: const [
                   Center(),
                   Center(),
                 ],
@@ -225,11 +238,11 @@ class ProfileScreen extends GetWidget<ProfileController> {
     );
   }
 
-  Widget _buildCustomElevatedButton(void Function()? onPressed, Widget child) {
+  Widget _buildCustomElevatedButton(BuildContext context, void Function()? onPressed, Widget child) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white70,
-        foregroundColor: Colors.black,
+        backgroundColor: context.isDarkMode ? Colors.black87 : Colors.white70,
+        foregroundColor: context.isDarkMode ? Colors.white : Colors.black,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(8))),
       ),

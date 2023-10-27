@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -14,19 +15,29 @@ class HomeScreen extends StatelessWidget {
           slivers: [
             SliverAppBar(
               floating: true,
-              surfaceTintColor: Colors.white,
+              surfaceTintColor: context.isDarkMode ? Colors.black : Colors.white,
               title:
                   Text("Instagram", style: GoogleFonts.lobster(fontSize: 32)),
               actions: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SvgPicture.asset("assets/icons/heart_outline.svg",
-                      height: 28),
+                      height: 28,
+                      colorFilter: ColorFilter.mode(
+                          Get.isDarkMode
+                              ? Colors.white
+                              : Colors.black,
+                          BlendMode.srcIn)),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SvgPicture.asset("assets/icons/messenger_svg.svg",
-                      height: 36),
+                      height: 36,
+                      colorFilter: ColorFilter.mode(
+                          Get.isDarkMode
+                              ? Colors.white
+                              : Colors.black,
+                          BlendMode.srcIn)),
                 ),
               ],
             ),
@@ -78,12 +89,22 @@ class HomeScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SvgPicture.asset("assets/icons/heart_outline.svg",
-                  height: 28),
+                  height: 28,
+                  colorFilter: ColorFilter.mode(
+                      Get.isDarkMode
+                          ? Colors.white
+                          : Colors.black,
+                      BlendMode.srcIn)),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SvgPicture.asset("assets/icons/chat_bubble_outline.svg",
-                  height: 31),
+                  height: 31,
+                  colorFilter: ColorFilter.mode(
+                      Get.isDarkMode
+                          ? Colors.white
+                          : Colors.black,
+                      BlendMode.srcIn)),
             ),
             const Padding(
               padding: EdgeInsets.all(8.0),

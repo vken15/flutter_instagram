@@ -14,7 +14,7 @@ class SearchScreen extends GetWidget<SearchContentController> {
             slivers: [
               SliverAppBar(
                 floating: true,
-                surfaceTintColor: Colors.white,
+                surfaceTintColor: context.isDarkMode ? Colors.black : Colors.white,
                 title: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
