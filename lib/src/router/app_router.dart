@@ -1,9 +1,9 @@
 
 import 'package:flutter_instagram/src/presentations/home_screen.dart';
-import 'package:flutter_instagram/src/presentations/profile_screen.dart';
+import 'package:flutter_instagram/src/presentations/profile/profile_screen.dart';
 import 'package:flutter_instagram/src/presentations/search/search_screen.dart';
-import 'package:flutter_instagram/src/presentations/tabs/bindings/tabbar_bindings.dart';
-import 'package:flutter_instagram/src/presentations/tabs/tabbar.dart';
+import 'package:flutter_instagram/src/presentations/tab/bindings/tabbar_bindings.dart';
+import 'package:flutter_instagram/src/presentations/tab/tabbar.dart';
 import 'package:get/get.dart';
 
 class AppRouter {

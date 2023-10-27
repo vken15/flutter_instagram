@@ -10,62 +10,79 @@ class SearchScreen extends GetWidget<SearchContentController> {
     return Scaffold(
       body: Obx(
         () => SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                controller.isSearch.value
-                    ? Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Stack(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                controller.isSearch.value = false;
-                              },
-                              child: const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 12.0),
-                                child: Icon(Icons.arrow_back),
+          child: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                floating: true,
+                surfaceTintColor: Colors.white,
+                title: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    controller.isSearch.value
+                        ? Stack(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  controller.isSearch.value = false;
+                                },
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 12.0),
+                                  child: Icon(Icons.arrow_back),
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 40),
-                              child: _buildSearchBar(),
-                            ),
-                          ],
-                        ),
-                      )
-                    : Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: _buildSearchBar(),
-                      ),
-              ],
-            ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 40),
+                                child: _buildSearchBar(
+                                    controller.searchContent.value,
+                                    controller.searchTextFocus,
+                                    () {}),
+                              ),
+                            ],
+                          )
+                        : _buildSearchBar(null, null, () {
+                            controller.isSearch.value = true;
+                            controller.searchTextFocus.requestFocus();
+                          }),
+                  ],
+                ),
+              ),
+              if (controller.isSearch.value == false)
+                SliverGrid.count(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 2,
+                    mainAxisSpacing: 2,
+                    children: List.generate(
+                      24,
+                      (index) {
+                        return Image.asset("assets/images/picture1.jpg");
+                      },
+                    )),
+            ],
           ),
         ),
       ),
     );
   }
 
-  TextFormField _buildSearchBar() {
-    return TextFormField(
-        controller: controller.searchContent.value,
-        focusNode: controller.searchTextFocus,
-        decoration: const InputDecoration(
-            hintText: "Tìm kiếm",
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(16)),
-            ),
-            prefixIcon: Icon(Icons.search),
-            contentPadding: EdgeInsets.symmetric(horizontal: 12)),
-        onTap: () {
-          controller.isSearch.value = true;
-        },
-        onTapOutside: (event) {
-          if (controller.searchTextFocus.hasFocus == true) {
-            controller.searchTextFocus.unfocus();
-            //controller.isSearch.value = false;
-          }
-        });
+  Widget _buildSearchBar(
+    TextEditingController? controller,
+    FocusNode? focus,
+    void Function()? onTap,
+  ) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(16, 0, 0, 0),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: TextFormField(
+          controller: controller,
+          focusNode: focus,
+          decoration: const InputDecoration(
+              hintText: "Tìm kiếm",
+              border: InputBorder.none,
+              prefixIcon: Icon(Icons.search),
+              contentPadding: EdgeInsets.all(12)),
+          onTap: onTap),
+    );
   }
 }
