@@ -14,6 +14,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
         slivers: [
           SliverAppBar(
             floating: true,
+            automaticallyImplyLeading: false,
             surfaceTintColor: context.isDarkMode ? Colors.black : Colors.white,
             title: const Row(
               mainAxisSize: MainAxisSize.min,
@@ -114,18 +115,20 @@ class ProfileScreen extends GetWidget<ProfileController> {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _buildCustomElevatedButton(context,
-                      () {}, const Text("Chỉnh sửa trang cá nhân")),
-                  _buildCustomElevatedButton(context,
-                      () {}, const Text("Chia sẻ trang cá nhân")),
-                  _buildCustomElevatedButton(context,
-                    () {},
-                    const Icon(Icons.person_add),
-                  ),
-                ],
+              child: Flexible(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _buildCustomElevatedButton(context,
+                        () {}, const Text("Chỉnh sửa trang cá nhân", overflow: TextOverflow.ellipsis,)),
+                    _buildCustomElevatedButton(context,
+                        () {}, const Text("Chia sẻ trang cá nhân", overflow: TextOverflow.ellipsis,)),
+                    _buildCustomElevatedButton(context,
+                      () {},
+                      const Icon(Icons.person_add),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -239,15 +242,20 @@ class ProfileScreen extends GetWidget<ProfileController> {
   }
 
   Widget _buildCustomElevatedButton(BuildContext context, void Function()? onPressed, Widget child) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: context.isDarkMode ? Colors.black87 : Colors.white70,
-        foregroundColor: context.isDarkMode ? Colors.white : Colors.black,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8))),
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: 150
       ),
-      onPressed: onPressed,
-      child: child,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: context.isDarkMode ? Colors.black87 : Colors.white70,
+          foregroundColor: context.isDarkMode ? const Color.fromRGBO(255, 255, 255, 1) : Colors.black,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8))),
+        ),
+        onPressed: onPressed,
+        child: child,
+      ),
     );
   }
 }

@@ -16,6 +16,7 @@ class HomeScreen extends StatelessWidget {
             SliverAppBar(
               floating: true,
               surfaceTintColor: context.isDarkMode ? Colors.black : Colors.white,
+              //automaticallyImplyLeading: false,
               title:
                   Text("Instagram", style: GoogleFonts.lobster(fontSize: 32)),
               actions: [

@@ -14,13 +14,14 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      locale: Get.deviceLocale,
       theme: ThemeData.light(
         
       ),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
       initialBinding:  InitialBindings(),
-      initialRoute: AppRouter.tabScreen,
+      initialRoute: AppRouter.loginScreen,
       getPages: AppRouter.pages,
     );
   }
